@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>JavaScript Projects</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background-color: #f9f9f9;
+      }
+      nav {
+        background-color: #3a3f58;
+        padding: 1rem;
+        text-align: center;
+      }
+      nav a {
+        color: white;
+        font-weight: bold;
+        margin: 0 20px;
+        text-decoration: none;
+        transition: color 0.3s ease;
+      }
+      nav a:hover {
+        color: #f0a500;
+      }
+      .container {
+        max-width: 1200px;
+        margin: 2rem auto;
+        padding: 1rem;
+      }
+      section {
+        background-color: white;
+        border-radius: 10px;
+        padding: 2rem;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        margin-bottom: 2rem;
+      }
+      h2 {
+        color: #333;
+        margin-bottom: 1rem;
+      }
+      p,
+      form,
+      .output {
+        margin-bottom: 1rem;
+      }
+      form input[type="number"],
+      button {
+        padding: 0.5rem;
+        margin-right: 0.5rem;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+      }
+      button {
+        background-color: #3a3f58;
+        color: white;
+        border: none;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
+      button:hover {
+        background-color: #f0a500;
+      }
+      .output {
+        padding: 1rem;
+        background-color: #eef7ff;
+        border-left: 4px solid #3a3f58;
+        border-radius: 5px;
+        font-style: italic;
+      }
+      .footer {
+        text-align: center;
+        margin-top: 2rem;
+        padding: 1rem;
+        background-color: #3a3f58;
+        color: white;
+        font-size: 0.9rem;
+      }
+      .footer a {
+        color: #f0a500;
+        text-decoration: none;
+      }
+      .footer a:hover {
+        text-decoration: underline;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Navigation Bar -->
+    <nav>
+      <a href="#quadratic">Quadratic Equation</a>
+      <a href="#prime">Prime Numbers</a>
+      <a href="#functions">Functions Study</a>
+      <a href="https://your-portfolio.com" target="_blank">Portfolio</a>
+    </nav>
+
+    <!-- Main Content Container -->
+    <div class="container">
+      <!-- Quadratic Equation Section -->
+      <section id="quadratic">
+        <h2>Find Roots of a Quadratic Equation</h2>
+        <p>Enter the coefficients of a quadratic equation:</p>
+        <form id="quadraticForm">
+          a: <input type="number" id="a" required /><br /><br />
+          b: <input type="number" id="b" required /><br /><br />
+          c: <input type="number" id="c" required /><br /><br />
+          <button type="submit">Calculate Roots</button>
+        </form>
+        <div class="output" id="quadraticOutput"></div>
+      </section>
+
+      <!-- Prime Numbers Section -->
+      <section id="prime">
+        <h2>Prime Numbers Between 1 and 100</h2>
+        <p>Click the button below to generate prime numbers:</p>
+        <button onclick="generatePrimes()">Generate Prime Numbers</button>
+        <div class="output" id="primeOutput"></div>
+      </section>
+
+      <!-- Functions Study Section -->
+      <section id="functions">
+        <h2>Study of Functions in JavaScript</h2>
+        <p>Below are different types of functions used in JavaScript:</p>
+
+        <h3>Arrow Function Example:</h3>
+        <div class="output" id="arrowFunctionOutput"></div>
+
+        <h3>Anonymous Function Example:</h3>
+        <div class="output" id="anonymousFunctionOutput"></div>
+
+        <h3>Inner Function Example:</h3>
+        <div class="output" id="innerFunctionOutput"></div>
+      </section>
+    </div>
+
+    <!-- Footer Section -->
+    <div class="footer">
+      <p>
+        Explore more at my
+        <a href="https://your-portfolio.com" target="_blank">Portfolio</a>
+      </p>
+    </div>
+
+    <!-- JavaScript Code -->
+    <script>
+      // 1. Finding roots of quadratic equation
+      document
+        .getElementById("quadraticForm")
+        .addEventListener("submit", function (e) {
+          e.preventDefault();
+          const a = parseFloat(document.getElementById("a").value);
+          const b = parseFloat(document.getElementById("b").value);
+          const c = parseFloat(document.getElementById("c").value);
+          const discriminant = b * b - 4 * a * c;
+          let output = "";
+          if (discriminant > 0) {
+            const root1 = (-b + Math.sqrt(discriminant)) / (2 * a);
+            const root2 = (-b - Math.sqrt(discriminant)) / (2 * a);
+            output = `Roots are real and distinct: Root 1 = ${root1}, Root 2 = ${root2}`;
+          } else if (discriminant === 0) {
+            const root = -b / (2 * a);
+            output = `Roots are real and equal: Root = ${root}`;
+          } else {
+            output = "Roots are imaginary (complex numbers)";
+          }
+          document.getElementById("quadraticOutput").textContent = output;
+        });
+
+      // 2. Generate prime numbers between 1 to 100
+      function generatePrimes() {
+        const primes = [];
+        for (let i = 2; i <= 100; i++) {
+          let isPrime = true;
+          for (let j = 2; j <= Math.sqrt(i); j++) {
+            if (i % j === 0) {
+              isPrime = false;
+              break;
+            }
+          }
+          if (isPrime) primes.push(i);
+        }
+        document.getElementById(
+          "primeOutput"
+        ).textContent = `Prime numbers: ${primes.join(", ")}`;
+      }
+
+      // 3. Study of functions in JavaScript
+
+      // Arrow Function Example
+      const arrowFunction = () => {
+        return "This is an arrow function.";
+      };
+      document.getElementById("arrowFunctionOutput").textContent =
+        arrowFunction();
+
+      // Anonymous Function Example
+      const anonymousFunction = function () {
+        return "This is an anonymous function.";
+      };
+      document.getElementById("anonymousFunctionOutput").textContent =
+        anonymousFunction();
+
+      // Inner Function Example
+      function outerFunction() {
+        function innerFunction() {
+          return "This is an inner function inside outer function.";
+        }
+        return innerFunction();
+      }
+      document.getElementById("innerFunctionOutput").textContent =
+        outerFunction();
+    </script>
+  </body>
+</html>
